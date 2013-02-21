@@ -2,7 +2,7 @@
 import os,re
 from zipfile import ZipFile
 
-curdir =  os.path.split( os.path.abspath(__file__) )[0] #Текущая директория
+curdir =   os.path.dirname(__file__)  #Текущая директория
 
 zin = ZipFile(curdir+'/dir.zip', 'r')
 zout = ZipFile(curdir+'/dir2.zip', 'w')

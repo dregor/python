@@ -16,7 +16,7 @@ class Persons:
         if Person is None:
             Person = self.PersonList[0]
         try:
-            file = io.open( os.path.join(str(self.rootdir),(Person.name+'.bsa')),'wb')
+            file = io.open( os.path.join(self.rootdir,(Person.name+'.bsa')),'wb')
         except:
             result = 'Не записано'
         else:
@@ -97,7 +97,7 @@ class Person:
         return a
 
 class SuperPerson(Person):
-    ''' Класс супер-человека, наследник класса человек, 
+    ''' Класс супер-человека, наследник класса человек,
         плюс супер-способности.
     '''
     def __init__(self, name, age, pay=9999999, job='superhero',ability='fly'):
@@ -113,8 +113,7 @@ class SuperPerson(Person):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Работа с персонами.')
-    curdir =  os.path.split( os.path.abspath(__file__) )[0] #Текущая директория
-
+    curdir =  os.path.dirname(__file__)  #Текущая директория
     #Работа с параметрами командной строки
 
     subparsers = parser.add_subparsers(help='Варианты работ:', dest='vary')
