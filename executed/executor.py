@@ -7,7 +7,7 @@ class Arch():
         else:
             self.path = path
 
-    def namelist( self ):
+    def name_list( self ):
         return self.arch_desc.namelist()
 
     def __str__(self):
@@ -40,8 +40,5 @@ class TarArch( Arch ):
         else : readstate = 'r:tar'
         self.arch_desc = tarfile.open( name , readstate )
 
-    def namelist( self ):
-        result = []
-        for i in self.arch.getmembers():
-            result.append( i.name )
-        return result
+    def name_list( self ):
+        return [ i.name for i in self.arch_desc.getmembers() ]
