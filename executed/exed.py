@@ -1,9 +1,10 @@
 def a( queue, arch ):
-    import os
+    import os, sys, time
     while not queue.empty():
         file = queue.get( block = True )
         print( file + ' - ' + os.getpid().__str__() )
         arch.extract( file )
+    sys.exit(0)
 
 class Exed():
 
@@ -18,8 +19,8 @@ class Exed():
         elif name[-4:] == '.rar':
             self.arch = RarArch( name )
 
-        m = Manager()
-        self.queue = m.Queue()
+        #m = Manager()
+        self.queue = Queue()
 
         for item in self.arch.name_list():
             self.queue.put( item )
@@ -31,10 +32,7 @@ class Exed():
         else:
             self.proc = proc
 
-        self.proc_list = []
-
-        for item in range( self.proc ):
-            self.proc_list.append( Process(target=a, args=(self.queue,self.arch)) )
+        self.proc_list = [ Process(target=a, args=(self.queue,self.arch)) for item in range( self.proc )]
 
     def stop( self ):
         self.runing = False
@@ -44,9 +42,20 @@ class Exed():
     def start( self):
         #import pdb
         #pdb.set_trace()
-        self.runing = True
         #self.pool.apply_async( a, args = ( self.queue , self.arch))
+        self.runing = True
         for item in self.proc_list:
             item.start()
             print(item)
 
+    def exec( self ):
+        while not queue.empty():
+            file = queue.get( block = True )
+            print( file + ' - ' + os.getpid().__str__() )
+            arch.extract( file )
+        sys.exit(0)
+
+if __name__ == '__main__':
+    import os
+    test = Exed( os.path.dirname( __file__ ) + 'dir.tar' )
+    test.start()
