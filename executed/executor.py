@@ -9,7 +9,10 @@ class Arch():
             self.path = path
 
     def name_list( self ):
-        return self.arch_desc.namelist()
+        for item in self.arch_desc.infolist():
+            if not item.filename.endswith('/'):
+                yield item.filename
+        #return self.arch_desc.namelist()
 
     def __str__(self):
         return self.arch_desc.name
@@ -41,6 +44,11 @@ class RarArch( Arch ):
         from rarfile import RarFile
         self.arch_desc = RarFile( self.name, 'r' )
 
+    def name_list( self ):
+        for item in self.arch_desc.infolist():
+            if not item.isdir():
+                yield item.filename
+
 class TarArch( Arch ):
 
     def __init__( self, name, path = None ):
@@ -55,4 +63,4 @@ class TarArch( Arch ):
         self.arch_desc = tarfile.open( self.name , readstate )
 
     def name_list( self ):
-        return [ i.name for i in self.arch_desc.getmembers() ]
+        return [ i.name for i in self.arch_desc.getmembers() if not i.isdir() ]
