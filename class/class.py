@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-import os,sys,io,pickle,argparse
+import os, io,pickle, argparse
 
 class Persons:
     ''' Класс для работы со списком персон.
@@ -24,7 +24,7 @@ class Persons:
             file.close()
             result = str( file )+' \n- Записано в - '+Person.name+'.bsa'
         finally:
-             return result
+            return result
 
     def save_all( self ):
         ''' Сохраняет все персоны из списка в файлы.
@@ -50,7 +50,7 @@ class Persons:
         '''
 
         if (path == None):
-             path = self.rootdir
+            path = self.rootdir
         for ( root, dirs, files ) in os.walk(path):
             for name in files:
                 fullname = os.path.join( root, name )
