@@ -1,5 +1,8 @@
-#! /usr/bin/env python3
-import os, io,pickle, argparse
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import os, io, pickle, argparse
+
 
 class Persons:
     ''' Класс для работы со списком персон.
